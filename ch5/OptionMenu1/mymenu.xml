@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/apple"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="사과"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/grape"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="포도"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/banana"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="바나나"
+        app:showAsAction="always" />
+</menu>
