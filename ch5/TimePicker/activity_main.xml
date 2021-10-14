@@ -11,9 +11,15 @@
         android:timePickerMode="clock" />
 
     <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sendNotification"
-        android:text="알림" />
+        android:text="선택" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[time]" />
 
 </LinearLayout>
