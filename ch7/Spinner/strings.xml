@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Spinner</string>
+    <string name="planet_prompt">태양계 행성</string>
+    <string-array name="planet_array">
+        <item>수성</item>
+        <item>금성</item>
+        <item>지구</item>
+        <item>화성</item>
+        <item>목성</item>
+        <item>토성</item>
+        <item>천왕성</item>
+        <item>해왕성</item>
+    </string-array>
+</resources>
