@@ -25,17 +25,37 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/trash"
                 android:onClick="onPoubelleButton" />
-
             <ImageButton
                 android:id="@+id/eraser_button"
                 android:layout_width="50px"
                 android:layout_height="50px"
-                android:adjustViewBounds="true"                
-                android:layout_toRightOf="@id/poubelle_button"
+                android:adjustViewBounds="true"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/poubelle_button"
                 android:layout_margin="5dp"
                 android:background="@drawable/eraser"
                 android:onClick="onEraserButton" />
+            <ImageButton
+                android:id="@+id/color_button"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:adjustViewBounds="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/eraser_button"
+                android:layout_margin="5dp"
+                android:background="@drawable/color"
+                android:onClick="onColorToolButton" />
+            <ImageButton
+                android:id="@+id/brush_button"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:adjustViewBounds="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/color_button"
+                android:layout_margin="5dp"
+                android:background="@drawable/brush"
+                android:onClick="onBrushButton" />
+
         </RelativeLayout>
     </LinearLayout>
 
@@ -49,6 +69,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/color_list"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -76,6 +97,49 @@
             android:onClick="onColorButton"
             android:background="@drawable/shape3"
             android:layout_margin="3dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/brush_list"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/small_button"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp"
+                android:background="@drawable/shape4"
+                android:onClick="onBrushSizeButton" />
+
+            <ImageButton
+                android:id="@+id/middle_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp"
+                android:layout_toRightOf="@id/small_button"
+                android:background="@drawable/shape4"
+                android:onClick="onBrushSizeButton" />
+
+            <ImageButton
+                android:id="@+id/big_button"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp"
+                android:layout_toRightOf="@id/middle_button"
+                android:background="@drawable/shape4"
+                android:onClick="onBrushSizeButton" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
