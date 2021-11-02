@@ -16,6 +16,8 @@ public class DrawingPaper extends View {
     private ArrayList<Paint> paintList = new ArrayList<Paint>();
     private int currentPath = 0;
     private int currentPaint = 0;
+    private int currentColor = Color.RED;
+    private float currentStrokeWidth = 10f;
 
     public DrawingPaper(Context context) {
         super(context);
@@ -26,8 +28,8 @@ public class DrawingPaper extends View {
         pathList.add(new Path());
         paintList.add(new Paint());
         paintList.get(currentPaint).setAntiAlias(true);
-        paintList.get(currentPaint).setColor(Color.RED);
-        paintList.get(currentPaint).setStrokeWidth(10f);
+        paintList.get(currentPaint).setColor(currentColor);
+        paintList.get(currentPaint).setStrokeWidth(currentStrokeWidth);
         paintList.get(currentPaint).setStyle(Paint.Style.STROKE);
         paintList.get(currentPaint).setStrokeJoin(Paint.Join.ROUND);
     }
@@ -59,12 +61,25 @@ public class DrawingPaper extends View {
         pathList.add(new Path());
         currentPath++;
         currentPaint++;
-
+        currentColor = color;
         paintList.get(currentPaint).setColor(color);
         paintList.get(currentPaint).setAntiAlias(true);
         paintList.get(currentPaint).setStyle(Paint.Style.STROKE);
         paintList.get(currentPaint).setStrokeJoin(Paint.Join.ROUND);
-        paintList.get(currentPaint).setStrokeWidth(10f);
+        paintList.get(currentPaint).setStrokeWidth(currentStrokeWidth);
+    }
+
+    public void setPaintStrokeWidth(float size) {
+        paintList.add(new Paint());
+        pathList.add(new Path());
+        currentPath++;
+        currentPaint++;
+
+        paintList.get(currentPaint).setColor(currentColor);
+        paintList.get(currentPaint).setAntiAlias(true);
+        paintList.get(currentPaint).setStyle(Paint.Style.STROKE);
+        paintList.get(currentPaint).setStrokeJoin(Paint.Join.ROUND);
+        paintList.get(currentPaint).setStrokeWidth(size);
     }
 
     @Override
