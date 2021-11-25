@@ -125,5 +125,5 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         PolylineOptions polyline = new PolylineOptions().add(before, current);
         mMap.addPolyline(polyline);
         before = current;
-    } // of zoomIn
+    } // of addMarker
 }
