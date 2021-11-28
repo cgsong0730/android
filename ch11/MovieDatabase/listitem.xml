@@ -24,20 +24,19 @@
         android:id="@+id/pd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/name"
+        android:layout_below="@id/score"
         android:layout_marginTop="1dip"
         android:textSize="15dp" />
-
 
     <TextView
         android:id="@+id/nation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/score"
+        android:layout_below="@id/pd"
         android:layout_marginTop="5dp"
         android:textColor="#666666"
         android:textSize="15dp" />
-S
+
     <TextView
         android:id="@+id/year"
         android:layout_width="wrap_content"
