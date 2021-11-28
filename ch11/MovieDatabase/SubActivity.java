@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SubActivity extends AppCompatActivity {
     EditText edit1, edit2, edit3, edit4, edit5;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,33 @@ public class SubActivity extends AppCompatActivity {
         Button buttonUpdate = (Button) findViewById(R.id.button_update);
         Button buttonDelete = (Button) findViewById(R.id.button_delete);
 
-        buttonSave.setOnClickListener( new View.OnClickListener() {
+        Intent intent = getIntent();
+        String actionRequest = intent.getStringExtra("ACTION_REQUEST");
+        switch (actionRequest) {
+            case "CREATE":
+                buttonSave.setVisibility(View.VISIBLE);
+                buttonUpdate.setVisibility(View.INVISIBLE);
+                buttonDelete.setVisibility(View.INVISIBLE);
+                break;
+            case "UPDATE":
+                buttonSave.setVisibility(View.INVISIBLE);
+                buttonUpdate.setVisibility(View.VISIBLE);
+                buttonDelete.setVisibility(View.VISIBLE);
+
+                id = intent.getStringExtra("ID");
+                edit1.setText(intent.getStringExtra("NAME"));
+                edit2.setText(intent.getStringExtra("YEAR"));
+                edit3.setText(intent.getStringExtra("PD"));
+                edit4.setText(intent.getStringExtra("SCORE"));
+                edit5.setText(intent.getStringExtra("NATION"));
+                break;
+        }
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
+                intent.putExtra("ACTION_RESULT", "CREATE");
                 intent.putExtra("INPUT_NAME", edit1.getText().toString());
                 intent.putExtra("INPUT_YEAR", edit2.getText().toString());
                 intent.putExtra("INPUT_PD", edit3.getText().toString());
@@ -40,11 +64,12 @@ public class SubActivity extends AppCompatActivity {
                 finish();
             }
         });
-        buttonUpdate.setOnClickListener( new View.OnClickListener() {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("ACTION", "update");
+                intent.putExtra("ACTION_RESULT", "UPDATE");
+                intent.putExtra("ID", id);
                 intent.putExtra("INPUT_NAME", edit1.getText().toString());
                 intent.putExtra("INPUT_YEAR", edit2.getText().toString());
                 intent.putExtra("INPUT_PD", edit3.getText().toString());
@@ -58,10 +83,11 @@ public class SubActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("ACTION", "delete");
+                intent.putExtra("ACTION_RESULT", "DELETE");
+                intent.putExtra("ID", id);
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
-    }
+    } // of onCreate()
 }
