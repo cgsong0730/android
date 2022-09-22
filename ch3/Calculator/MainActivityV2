@@ -1,0 +1,47 @@
+public class MainActivityV2 extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public void onButtonClick(View view) {
+        TextView labelResult = (TextView) findViewById(R.id.labelResult);
+        EditText input1 = (EditText) findViewById(R.id.input1);
+        EditText input2 = (EditText) findViewById(R.id.input2);
+
+        String str1 = input1.getText().toString();
+        String str2 = input1.getText().toString();
+        int result = 0;
+
+        if (!str1.equals("") && !str2.equals("")) {
+            int num1 = Integer.parseInt(input1.getText().toString());
+            int num2 = Integer.parseInt(input2.getText().toString());
+
+            switch (view.getId()) {
+                case R.id.buttonAdd:
+                    result = num1 + num2;
+                    labelResult.setText("Result:" + result);
+                    break;
+                case R.id.buttonSubtract:
+                    result = num1 - num2;
+                    labelResult.setText("Result:" + result);
+                    break;
+                case R.id.buttonMultiply:
+                    result = num1 * num2;
+                    labelResult.setText("Result:" + result);
+                    break;
+                case R.id.buttonDivide:
+                    result = num1 / num2;
+                    labelResult.setText("Result:" + result);
+                    break;
+            }
+        } else if(str2.equals("0")) {
+            labelResult.setText("An integer cannot be divided by zero.");
+        }
+        else {
+            labelResult.setText("Please enter the two operands correctly.");
+        }
+    }
+}
