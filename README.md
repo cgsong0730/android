@@ -1,5 +1,5 @@
 # Mobile Programming
-안드로이드 플랫폼 환경에서 Java 언어를 이용하여 앱을 개발할 시 참고할 수 있는 샘플 소스코드를 제공하는 저장소입니다.
+This repository provides simple source codes for android programming.
 
 ## Table of contents
 * Ch3. 사용자 인터페이스 기초
