@@ -18,28 +18,28 @@ public class MainActivityV2 extends AppCompatActivity {
         if (!str1.equals("") && !str2.equals("")) {
             int num1 = Integer.parseInt(str1);
             int num2 = Integer.parseInt(str2);
-            switch (view.getId()) {
-                case R.id.buttonAdd:
-                    result = num1 + num2;
-                    labelResult.setText("Result:" + result);
-                    break;
-                case R.id.buttonSubtract:
-                    result = num1 - num2;
-                    labelResult.setText("Result:" + result);
-                    break;
-                case R.id.buttonMultiply:
-                    result = num1 * num2;
-                    labelResult.setText("Result:" + result);
-                    break;
-                case R.id.buttonDivide:
-                    if (num2 != 0) {
-                        result = num1 / num2;
-                        labelResult.setText("Result:" + result);
-                    } else {
-                        labelResult.setText("a");
-                    }
-                    break;
+            
+            if (view.getId() == R.id.buttonAdd) {
+                result = num1 + num2;
+                labelResult.setText("Result:" + result);
             }
+            else if (view.getId() == R.id.buttonSubtract) {
+                result = num1 - num2;
+                labelResult.setText("Result:" + result);
+            }
+            else if (view.getId() == R.id.buttonMultiply) {
+                result = num1 * num2;
+                labelResult.setText("Result:" + result);
+            }
+            else if (view.getId() == R.id.buttonDivide) {
+                if (num2 != 0) {
+                    result = num1 / num2;
+                    labelResult.setText("Result:" + result);
+                } else {
+                    labelResult.setText("error");
+                }
+            }
+
         } else {
             labelResult.setText("Please enter two operands.");
         }
