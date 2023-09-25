@@ -25,23 +25,26 @@ public class MainActivity extends AppCompatActivity {
 
         int result = 0;
 
-        switch (view.getId()) {
-            case R.id.buttonAdd:
-                result = num1 + num2;
-                labelResult.setText("Result:" + result);
-                break;
-            case R.id.buttonSubtract:
-                result = num1 - num2;
-                labelResult.setText("Result:" + result);
-                break;
-            case R.id.buttonMultiply:
-                result = num1 * num2;
-                labelResult.setText("Result:" + result);
-                break;
-            case R.id.buttonDivide:
+        if (view.getId() == R.id.buttonAdd) {
+            result = num1 + num2;
+            labelResult.setText("Result:" + result);
+        }
+        else if (view.getId() == R.id.buttonSubtract) {
+            result = num1 - num2;
+            labelResult.setText("Result:" + result);
+        }
+        else if (view.getId() == R.id.buttonMultiply) {
+            result = num1 * num2;
+            labelResult.setText("Result:" + result);
+        }
+        else if (view.getId() == R.id.buttonDivide) {
+            if (num2 != 0) {
                 result = num1 / num2;
                 labelResult.setText("Result:" + result);
-                break;
+            } else {
+                labelResult.setText("error");
+            }
         }
+        
     }
 }
