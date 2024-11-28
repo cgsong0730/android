@@ -67,5 +67,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, 1);
         }
+        startActivityForResult(takePictureIntent, 1);
     }
 }
