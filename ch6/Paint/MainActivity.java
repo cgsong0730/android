@@ -71,30 +71,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBrushSizeButton(View view) {
-        switch (view.getId()) {
-            case R.id.small_button:
-                drawingPaper.setPaintStrokeWidth(10f);
-                break;
-            case R.id.middle_button:
-                drawingPaper.setPaintStrokeWidth(20f);
-                break;
-            case R.id.big_button:
-                drawingPaper.setPaintStrokeWidth(30f);
-                break;
+        int id = view.getId();
+        if (id == R.id.small_button) {
+            drawingPaper.setPaintStrokeWidth(10f);
+        } else if (id == R.id.middle_button) {
+            drawingPaper.setPaintStrokeWidth(20f);
+        } else if (id == R.id.big_button) {
+            drawingPaper.setPaintStrokeWidth(30f);
         }
     }
 
     public void onColorButton (View view) {
-        switch (view.getId()) {
-            case R.id.red_button:
-                drawingPaper.setPaintColor(Color.RED);
-                break;
-            case R.id.green_button:
-                drawingPaper.setPaintColor(Color.GREEN);
-                break;
-            case R.id.blue_button:
-                drawingPaper.setPaintColor(Color.BLUE);
-                break;
+        int id = view.getId();
+        if (id == R.id.red_button) {
+            drawingPaper.setPaintColor(Color.RED);
+        } else if (id == R.id.green_button) {
+            drawingPaper.setPaintColor(Color.GREEN);
+        } else if (id == R.id.blue_button) {
+            drawingPaper.setPaintColor(Color.BLUE);
         }
     }
 }
