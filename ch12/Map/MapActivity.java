@@ -1,8 +1,11 @@
 package com.example.pro2;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -29,6 +32,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkAndEnableLocation();
         MapsInitializer.initialize(getApplicationContext(), Renderer.LATEST, this);
         setContentView(R.layout.activity_map);
 
@@ -39,6 +43,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             mapFragment.getMapAsync(this);
         } else {
             Log.d("MapsDemo", "Can not find Map Fragment.");
+        }
+    }
+
+    private void checkAndEnableLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (mMap != null) {
+                mMap.setMyLocationEnabled(true);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -61,6 +76,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         LatLng seoul = new LatLng(37.5665, 126.9780);
         mMap.addMarker(new MarkerOptions().position(seoul).title("서울"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 12f));
-
     }
 }
