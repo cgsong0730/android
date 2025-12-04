@@ -1,6 +1,7 @@
-package com.example.course;
+package com.example.pro2;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -10,26 +11,25 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.course.databinding.ActivityMapsBinding;
+import com.google.android.gms.maps.MapsInitializer.Renderer;
+import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
-
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, OnMapsSdkInitializedCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-
     private static final LatLng seoul = new LatLng(37.566535, 126.97769);
     private static final LatLng daejeon = new LatLng(36.50412, 127.384548);
     private static final LatLng busan = new LatLng(35.179554, 129.075642);
@@ -41,18 +41,37 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private Marker mDaejeon;
     private Marker mBusan;
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+    private static final String[] REQUIRED_PERMISSIONS = new String[] {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.INTERNET
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MapsInitializer.initialize(getApplicationContext(), Renderer.LATEST, this);
+        setContentView(R.layout.activity_map);
 
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        for (String item : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, item) == PackageManager.PERMISSION_GRANTED){
+                if (mMap != null) {
+                    mMap.setMyLocationEnabled(true);
+                }
+            } else {
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE);
+            }
+        }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        } else {
+            Log.d("MapsDemo", "Can not find Map Fragment.");
+        }
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
@@ -64,18 +83,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             public void onProviderDisabled(String provider) {}
         }; // of locationListener
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            Toast.makeText(MapsActivity.this, "First enable LOCATION ACCESS in settings.", Toast.LENGTH_LONG).show();
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, locationListener);
+    }
 
-            return;
+    @Override
+    public void onMapsSdkInitialized(MapsInitializer.Renderer renderer) {
+        switch (renderer) {
+            case LATEST:
+                Log.d("MapsDemo", "The latest version of the renderer is used.");
+                break;
+            case LEGACY:
+                Log.d("MapsDemo", "The legacy version of the renderer is used.");
+                break;
         }
-
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
     }
 
     @Override
@@ -92,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         mBusan.setTag(0);
 
         mMap.setOnMarkerClickListener(this);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.566535, 126.97769)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 12f));
 
 //        mMap.setMinZoomPreference(7);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
